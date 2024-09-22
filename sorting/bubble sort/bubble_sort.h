@@ -22,8 +22,8 @@ void print_array(int* array, int size) {
 
 void bubble_sort(int* unsorted_array, int num_elements) {
     printf("Bubble sorting...\n");
-    for (int i=0; i<num_elements;i++) {
-        for (int j=0; j<num_elements-1; j++) {
+    for (int i=num_elements-1; i>=1;i--) {
+        for (int j=0; j<=i-1; j++) {
             if (unsorted_array[j]>unsorted_array[j+1]) {
                 swap(&unsorted_array[j], &unsorted_array[j+1]);
             }
