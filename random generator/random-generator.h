@@ -33,5 +33,11 @@ void rand_gen(int n, int *rand_list) {
     }
 }
 
+void print_list(int *rand_list, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d:\t%d\n", i, rand_list[i]);
+    }
+}
+
 
 #endif //RANDOM_GENERATOR_H
