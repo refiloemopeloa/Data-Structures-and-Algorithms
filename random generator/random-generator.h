@@ -12,4 +12,8 @@ void swap(int *a, int *b) {
     *b = temp;
 }
 
+int rand_num(int n) {
+    return rand() % n;
+}
+
 #endif //RANDOM_GENERATOR_H
