@@ -8,7 +8,7 @@ A singly linked list consists of individual `links`.
 
 Each `link` contains the following:
 * `next` pointer which points to the link after it in the list. It is initialized to `NULL`.
-* `thing` pointer, which points to any data type.
+* `thing` union, which contains pointers to any data type.
 
 Once a link is created, it can be added to the linked list. The structure of the linked list is as follows:
 * `head` pointer which points to the first element in the linked list. It is initialized to `NULL`.
