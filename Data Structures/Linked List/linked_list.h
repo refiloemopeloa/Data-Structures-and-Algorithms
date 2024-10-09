@@ -2,27 +2,50 @@
 
 //bool structure
 typedef enum {
+
+
+
     false,
     true
-} bool;
+}
+
+bool;
+
+//enum which keeps track of the type of Thing.
+typedef enum {
+    BOOL_TYPE,
+    SHORT_TYPE,
+    INT_TYPE,
+    LONG_TYPE,
+    FLOAT_TYPE,
+    DOUBLE_TYPE,
+    CHAR_TYPE,
+    VOID_TYPE
+} ThingType;
+
 
 //Thing pointer, which points to any data-type
-typedef void *Thing;
-
-Thing init_Thing(Thing thing) {
-    Thing new_thing = malloc(sizeof(typeof(*thing)));
-    //i left of here. i'm tryng to create a Thing type and not have to account for each type
-}
+typedef union {
+    bool *bool_thing;
+    short *short_thing;
+    int *int_thing;
+    long *long_int;
+    float *float_thing;
+    double *double_thing;
+    char *char_thing;
+    void *void_thing;
+} Thing;
 
 
 //Link datatype, which represents a node in list
 typedef struct {
     struct Link *next;
     Thing thing;
+    ThingType type;
 } *Link;
 
 //function for initializing link. call function to initialize link. when calling, place link name in place of `link` argument
-Link init_Link(Thing thing) {
+Link init_Link(Thing thing, ThingType type) {
     Link new_link = malloc(sizeof(*new_link));
     if (new_link == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
@@ -30,6 +53,7 @@ Link init_Link(Thing thing) {
     }
     new_link->next = NULL;
     new_link->thing = thing;
+    new_link->type = type;
     return new_link;
 }
 
@@ -88,7 +112,8 @@ void push_back(Linked_List linked_list, Link link) {
 Thing value_at(Linked_List linked_list, int index) {
     if (index > get_length(linked_list) - 1) {
         perror("index out of range!");
-        return NULL;
+        Thing thing = {.void_thing = NULL};
+        return thing;
     }
     Link curr = linked_list->head;
     int i = 0;
