@@ -5,6 +5,7 @@
 #ifndef RANDOM_GENERATOR_H
 #define RANDOM_GENERATOR_H
 #include <stdio.h>
+#include <cstdlib>
 
 void swap(int *a, int *b) {
     int temp = *a;
