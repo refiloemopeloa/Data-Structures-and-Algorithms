@@ -5,7 +5,7 @@
 int main() {
 	int value = 5;
 
-	Thing thing = &value;
+	Thing thing = init_Thing(&value);
 
 	Link new_link = init_Link(thing);
 

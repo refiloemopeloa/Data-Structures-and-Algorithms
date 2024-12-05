@@ -8,7 +8,7 @@ A singly linked list consists of individual `links`.
 
 Each `link` contains the following:
 * `next` pointer which points to the link after it in the list. It is initialized to `NULL`.
-* `thing` union, which contains pointers to any data type.
+* `thing` variable, which contains pointers to a data type you define. The default data type is `int`.
 
 Once a link is created, it can be added to the linked list. The structure of the linked list is as follows:
 * `head` pointer which points to the first element in the linked list. It is initialized to `NULL`.
@@ -22,7 +22,8 @@ Before manipulating any data, we need to initialize our `things`, `links` and `l
 1. Set `thing` to the address of some thing.
 
 ```C
-Thing thing = &value;
+int value = 0;
+Thing thing = init_Thing(&value);
 ```
 
 2. Create an instance of a `link`.

@@ -1,59 +1,46 @@
 #include <stddef.h>
 
-//bool structure
-typedef enum {
-
-
-
-    false,
-    true
-}
-
-bool;
-
-//enum which keeps track of the type of Thing.
-typedef enum {
-    BOOL_TYPE,
-    SHORT_TYPE,
-    INT_TYPE,
-    LONG_TYPE,
-    FLOAT_TYPE,
-    DOUBLE_TYPE,
-    CHAR_TYPE,
-    VOID_TYPE
-} ThingType;
-
-
-//Thing pointer, which points to any data-type
-typedef union {
-    bool *bool_thing;
-    short *short_thing;
-    int *int_thing;
-    long *long_int;
-    float *float_thing;
-    double *double_thing;
-    char *char_thing;
-    void *void_thing;
+typedef struct {
+    //change the data type of thing here
+    int* value;
 } Thing;
 
 
-//Link datatype, which represents a node in list
+// Link datatype, which represents a node in list
 typedef struct {
     struct Link *next;
     Thing thing;
-    ThingType type;
 } *Link;
 
-//function for initializing link. call function to initialize link. when calling, place link name in place of `link` argument
-Link init_Link(Thing thing, ThingType type) {
+/**
+ * This function initializes a thing.
+ * @param value The value you want the thing to point to
+ * @return A thing that points to the value passed to the function
+ */
+Thing init_Thing(int *value) {
+    Thing new_thing = {value};
+    return new_thing;
+}
+
+/**
+    This function initializes a link.
+
+    @param thing: A thing that you'd like the link to be associated with.
+    @return A link with next being null and thing being the thing passed via argument.
+*/
+Link init_Link(Thing thing) {
+
     Link new_link = malloc(sizeof(*new_link));
+
     if (new_link == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
-        return 1;
+        free(new_link);
+        return NULL;
     }
-    new_link->next = NULL;
+
+    new_link->next = NULL,
     new_link->thing = thing;
-    new_link->type = type;
+
     return new_link;
 }
 
@@ -63,21 +50,31 @@ typedef struct {
     int length;
 } *Linked_List;
 
-//function for initializing linked list. call function to initialize linked list. when calling, place linked list name in place of `linked_list` argument
-// #define init_Linked_List(linked_list, head) Linked_List linked_list = { linked_list->head = head, linked_list->length = ((head) ? (0) : (1)) }
+/**
+ * This function initializes a linked list.
+ * @param new_link A link which will be set as the head of the linked list.
+ * @return A linked list with one thing in it, and the link associated with thing being the head of the linked list.
+ */
 Linked_List init_Linked_List(Link new_link) {
     Linked_List linked_list = malloc(sizeof(*linked_list));
+
     if (linked_list == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         free(new_link);
         return NULL;
     }
+
     linked_list->head = new_link;
     linked_list->length = ((new_link) ? (1) : (0));
+
     return linked_list;
 }
 
-//function to get length of linked list
+/**
+ * This function returns the length of a linked list
+ * @param linked_list A linked list who's length you want.
+ * @return The length of the passed linked list.
+ */
 int get_length(Linked_List linked_list) {
     if (linked_list->head && linked_list->length == 0) {
         linked_list->length++;
@@ -86,9 +83,6 @@ int get_length(Linked_List linked_list) {
     return linked_list->length;
 }
 
-void set_head(Linked_List linked_list, Link link) {
-    linked_list->head = link;
-}
 
 //function for adding link to linked list
 void push_back(Linked_List linked_list, Link link) {
