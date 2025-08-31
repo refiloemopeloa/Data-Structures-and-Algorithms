@@ -11,18 +11,18 @@ Vector::Vector() {
 void Vector::initialise(int length)
 {
     std::random_device rd;
-    srand(rd());
+    srand(42);
     items = length;
     cols = new int[items];
     for (int i = 0; i < items; i++)
     {
-        cols[i] = rand();
+        cols[i] = rand() % 10;
     }
 }
 
 void Vector::print() {
     for (int i=0; i<items-1; i++) {
-        std::cout << cols[i] << " ";
+        std::cout << cols[i] << "\t";
     }
     std::cout << cols[items-1] << "\n";
 }
