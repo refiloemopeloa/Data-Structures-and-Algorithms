@@ -64,7 +64,7 @@ void iterative_multiply(int *c, int *a, int *b, int &row_count)
     }
 }
 
-void recursive_multiply(int *A, int *B, int *C, int x_c, int y_c, int x_a, int y_a, int x_b, int y_b, int row_count, int col_count, int x_quad, int y_quad)
+void recursive_multiply(int *A, int *B, int *C, int x_c, int y_c, int x_a, int y_a, int x_b, int y_b, int row_count, int col_count)
 {
     int n = row_count;
 
@@ -77,20 +77,21 @@ void recursive_multiply(int *A, int *B, int *C, int x_c, int y_c, int x_a, int y
     else
     {
         // C[x][y]
-        recursive_multiply(A, B, C, x_c / 2 /*+ x_quad*/, y_c / 2 /*+ y_quad*/, x_a / 2, y_a / 2, x_b / 2, y_b / 2, row_count / 2, col_count, x_quad/2, y_quad/2);
-        recursive_multiply(A, B, C, x_c / 2 /*+ x_quad*/, y_c / 2 /*+ y_quad*/, x_a / 2, y_a / 2 + 1, x_b / 2 + 1, y_b / 2, row_count / 2, col_count, x_quad/2, y_quad/2);
+        recursive_multiply(A, B, C, x_c / 2, y_c / 2, x_a / 2, y_a / 2, x_b / 2, y_b / 2, row_count / 2, col_count);
+        recursive_multiply(A, B, C, x_c / 2, y_c / 2, x_a / 2, y_a / 2 + 1, x_b / 2 + 1, y_b / 2, row_count / 2, col_count);
 
         // C[x][y+1]
-        recursive_multiply(A, B, C, x_c / 2 /*+ x_quad*/, y_c / 2 /*+ y_quad*/ + 1, x_a / 2, y_a / 2, x_b / 2, y_b / 2 + 1, row_count / 2, col_count, x_quad/2, y_quad/2);
-        recursive_multiply(A, B, C, x_c / 2 /*+ x_quad*/, y_c / 2 /*+ y_quad*/ + 1, x_a / 2, y_a / 2 + 1, x_b / 2 + 1, y_b / 2 + 1, row_count / 2, col_count, x_quad/2, y_quad/2);
+        recursive_multiply(A, B, C, x_c / 2, y_c / 2 + 1, x_a / 2, y_a / 2, x_b / 2, y_b / 2 + 1, row_count / 2, col_count);
+        recursive_multiply(A, B, C, x_c / 2, y_c / 2 + 1, x_a / 2, y_a / 2 + 1, x_b / 2 + 1, y_b / 2 + 1, row_count / 2, col_count);
 
         // C[x+1][y]
-        recursive_multiply(A, B, C, x_c / 2 + 1 /*+ x_quad*/, y_c / 2 /*+ y_quad*/, x_a / 2 + 1, y_a / 2, x_b / 2, y_b / 2, row_count / 2, col_count, x_quad/2, y_quad/2);
-        recursive_multiply(A, B, C, x_c / 2 + 1 /*+ x_quad*/, y_c / 2 /*+ y_quad*/, x_a / 2 + 1, y_a / 2 + 1, x_b / 2 + 1, y_b / 2, row_count / 2, col_count, x_quad/2, y_quad/2);
+        recursive_multiply(A, B, C, x_c / 2 + 1, y_c / 2, x_a / 2 + 1, y_a / 2, x_b / 2, y_b / 2, row_count / 2, col_count);
+        recursive_multiply(A, B, C, x_c / 2 + 1, y_c / 2, x_a / 2 + 1, y_a / 2 + 1, x_b / 2 + 1, y_b / 2, row_count / 2, col_count);
 
         // C[x+1][y+1]
-        recursive_multiply(A, B, C, x_c / 2 + 1 /*+ x_quad*/, y_c / 2 + 1 /*+ y_quad*/, x_a / 2 + 1, y_a / 2, x_b / 2, y_b / 2 + 1, row_count / 2, col_count, x_quad/2, y_quad/2);
-        recursive_multiply(A, B, C, x_c / 2 + 1 /*+ x_quad*/, y_c / 2 + 1 /*+ y_quad*/, x_a / 2 + 1, y_a / 2 + 1, x_b / 2 + 1, y_b / 2 + 1, row_count / 2, col_count, x_quad/2, y_quad/2);
+        recursive_multiply(A, B, C, x_c / 2 + 1, y_c / 2 + 1, x_a / 2 + 1, y_a / 2, x_b / 2, y_b / 2 + 1, row_count / 2, col_count);
+        recursive_multiply(A, B, C, x_c / 2 + 1, y_c / 2 + 1, x_a / 2 + 1, y_a / 2 + 1, x_b / 2 + 1, y_b / 2 + 1, row_count / 2, col_count);
+
     }
 }
 
@@ -122,7 +123,7 @@ int main()
 
     iterative_multiply(C_iter, A, B, row_count);
 
-    recursive_multiply(A, B, C_recur, row_count - 1, row_count - 1, row_count - 1, row_count - 1, row_count - 1, row_count - 1, row_count, row_count, row_count-1, row_count-1);
+    recursive_multiply(A, B, C_recur, row_count - 1, row_count - 1, row_count - 1, row_count - 1, row_count - 1, row_count - 1, row_count, row_count);
 
     cout << "Matrix C after iterative multiply" << "\n";
     print(C_iter, row_count);

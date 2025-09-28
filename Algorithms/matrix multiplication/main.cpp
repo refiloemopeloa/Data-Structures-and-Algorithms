@@ -6,17 +6,20 @@ using namespace std;
 int main()
 {
     int row_count;
-    row_count = 3;
-    Matrix M = Matrix(row_count, row_count);
-
-    M.print();
-    cout<<endl;
+    row_count = 4;
+    Matrix C = Matrix(row_count, row_count);
     
-    for (int i=0; i< row_count; i++) {
-        cout << M[0][i] << " ";
-    }
+    Matrix B = Matrix(row_count, row_count);
+    Matrix A = Matrix(row_count, row_count);
 
-    cout << endl;
+    cout << "Matrix A\n-------------------------------------\n"; 
+    A.print();
+    cout << "Matrix B\n-------------------------------------\n"; 
+    B.print();
+    cout << "Matrix C\n-------------------------------------\n"; 
+    C.recursive_multiply(A, B, 0, row_count-1, 0, row_count-1);
+    C.print();
+    cout<<endl;
 
     return 0;
 }
