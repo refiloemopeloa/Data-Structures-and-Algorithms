@@ -137,6 +137,44 @@ void tree_delete(BST *this, Node* z)
     }
 }
 
+void inorder_tree_walk(Node *this)
+{
+    Node *ptr = this;
+    while (1)
+    {
+        if (ptr == NULL)
+        {
+            printf("\n");
+            return;
+        }
+        if (ptr->visited == 1)
+        {
+            ptr = ptr->parent;
+            continue;
+        }
+        if (ptr->left != NULL && ptr->left->visited == 0)
+        {
+            ptr = ptr->left;
+            continue;
+        }
+        printf("%d ", ptr->key);
+        ptr->visited = 1;
+        if (ptr->right != NULL && ptr->right->visited == 0)
+        {
+            ptr = ptr->right;
+            continue;
+        }
+    }
+}
+
+void reset_visited(Node *this) {
+    if (this != NULL) {
+        reset_visited(this->left);
+        this->visited = 0;
+        reset_visited(this->right);
+    }
+}
+
 
 int main() {
     return 0;
