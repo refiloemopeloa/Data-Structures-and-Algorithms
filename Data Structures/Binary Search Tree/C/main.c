@@ -175,6 +175,20 @@ void reset_visited(Node *this) {
     }
 }
 
+void generate_random_set(int* array, int* size, int* start) {
+    for (int i=0, j=*start; i<*size; i++, j++) {
+        array[i] = j;
+    }
+    srand(time(NULL));
+    int temp;
+    int random;
+    for (int i = 0; i < *size; i++) {
+        random = rand() % (*start+*size);
+        temp = array[i];
+        array[i] = array[random];
+        array[random] = temp;        
+    }
+}
 
 int main() {
     return 0;
