@@ -190,6 +190,60 @@ void generate_random_set(int* array, int* size, int* start) {
     }
 }
 
+void printTreeHelper(Node *node, char *prefix, int isLeft) {
+    if (node == NULL) {
+        return;
+    }
+    
+    printf("%s", prefix);
+    printf("%s", isLeft ? "├── " : "└── ");
+    printf("%d\n", node->key);
+    
+    char *newPrefix = (char *)malloc(strlen(prefix) + 5);
+    strcpy(newPrefix, prefix);
+    strcat(newPrefix, isLeft ? "│   " : "    ");
+    
+    if (node->left != NULL || node->right != NULL) {
+        if (node->right != NULL) {
+            printTreeHelper(node->right, newPrefix, node->left != NULL);
+        } else if (node->left != NULL) {
+            printf("%s├── (null)\n", newPrefix);
+        }
+        
+        if (node->left != NULL) {
+            printTreeHelper(node->left, newPrefix, 0);
+        } else if (node->right != NULL) {
+            printf("%s└── (null)\n", newPrefix);
+        }
+    }
+    
+    free(newPrefix);
+}
+
+void printTree(BST *tree) {
+    printf("Binary Search Tree\n===============\n");
+    if (tree == NULL || tree->root == NULL) {
+        printf("(empty tree)\n");
+        return;
+    }
+    
+    printf("%d\n", tree->root->key);
+    
+    if (tree->root->left != NULL || tree->root->right != NULL) {
+        if (tree->root->right != NULL) {
+            printTreeHelper(tree->root->right, "", tree->root->left != NULL);
+        } else {
+            printf("├── (null)\n");
+        }
+        
+        if (tree->root->left != NULL) {
+            printTreeHelper(tree->root->left, "", 0);
+        } else {
+            printf("└── (null)\n");
+        }
+    }
+}
+
 int main() {
     return 0;
 }
