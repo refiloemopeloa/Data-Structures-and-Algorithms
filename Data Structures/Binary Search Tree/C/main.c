@@ -244,6 +244,32 @@ void printTree(BST *tree) {
     }
 }
 
-int main() {
+int main()
+{
+    int size = 12;
+    int start = 0;
+    int *array = (int*)calloc(size, sizeof(int));
+    generate_random_set(array, &size, &start);
+    BST *tree = (BST *)malloc(sizeof(BST));
+
+    tree->root = NULL;
+    Node *node;
+
+    for (int i = 0; i < size; i++)
+    {
+        node = (Node *)malloc(sizeof(Node));
+        new_Node(node, NULL, NULL, NULL, array[i]);
+        tree_insert(tree, node);
+    }
+    
+    int key = 9;
+    printf("Tree before deleting %d\n", key);
+    printTree(tree);
+    reset_visited(tree->root);
+    
+    tree_delete(tree, get_Node(tree, key));
+    printf("Tree after deleting %d\n", key);
+    printTree(tree);
+    reset_visited(tree->root);
     return 0;
 }
