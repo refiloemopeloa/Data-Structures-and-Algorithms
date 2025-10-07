@@ -30,6 +30,47 @@ void new_BST(BST *this, int *array, int *size)
 {
     ;
 }
+void copy_Node(Node *this, Node *other)
+{
+    this->left = other->left;
+    this->right = other->right;
+    this->parent = other->parent;
+    this->key = other->key;
+}
+
+Node *get_Node(BST *this, int key)
+{
+    Node *ptr = this->root;
+
+    while (1)
+    {
+        if (ptr == NULL)
+            return NULL;
+        if (ptr->key == key)
+            return ptr;
+        if (ptr->key > key)
+        {
+            ptr = ptr->left;
+            continue;
+        }
+        ptr = ptr->right;
+    }
+}
+
+Node *min_Node(Node *this)
+{
+    Node *ptr = this;
+
+    if (ptr == NULL)
+        return NULL;
+    while (ptr->left != NULL)
+    {
+        ptr = ptr->left;
+    }
+
+    return ptr;
+}
+
 
 int main() {
     return 0;
