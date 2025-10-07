@@ -105,6 +105,38 @@ void tree_insert(BST *this, Node *new)
     }
 }
 
+void transplant(BST* this, Node* u, Node* v) {
+    if (u->parent == NULL) {
+        this->root = v;
+    } else if (u == u->parent->left) {
+        u->parent->left = v;
+    } else {
+        u->parent->right = v;
+    }
+    if (v != NULL) {
+        v->parent = u->parent;
+    }
+}
+
+void tree_delete(BST *this, Node* z)
+{
+    if (z->left == NULL) {
+        transplant(this, z, z->right);
+    } else if (z->right == NULL) {
+        transplant(this, z, z->left);
+    } else {
+        Node* y = min_Node(z->right);
+        if (y != z->right) {
+            transplant(this, y, y->right);
+            y->right = z->right;
+            y->right->parent = y;
+        }
+        transplant(this, z, y);
+        y->left = z->left;
+        y->left->parent = y;
+    }
+}
+
 
 int main() {
     return 0;
