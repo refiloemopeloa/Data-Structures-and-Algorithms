@@ -71,6 +71,40 @@ Node *min_Node(Node *this)
     return ptr;
 }
 
+void tree_insert(BST *this, Node *new)
+{
+    Node *ptr = this->root;
+    if (ptr == NULL)
+    {
+        this->root = (Node *)malloc(sizeof(Node));
+        copy_Node(this->root, new);
+        return;
+    }
+    while (1)
+    {
+        if (ptr->key > new->key)
+        {
+            if (ptr->left == NULL)
+            {
+                new->parent = ptr;
+                ptr->left = new;
+                return;
+            }
+            ptr = ptr->left;
+        }
+        else
+        {
+            if (ptr->right == NULL)
+            {
+                new->parent = ptr;
+                ptr->right = new;
+                return;
+            }
+            ptr = ptr->right;
+        }
+    }
+}
+
 
 int main() {
     return 0;
